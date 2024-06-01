@@ -26,7 +26,7 @@ async function loginUsuario(req, res) {
             res.status(404).send('Usuario o contraseña incorrectos');
         }
 
-        let validPassword = await autenticador.comparePassword(datos.password, usuario.password_hash)
+        let validPassword = await autenticador.comparePassword(datos.password, usuario.contrasenia)
 
         if (!validPassword) {
             res.status(404).send('Usuario o contraseña incorrectos');
