@@ -4,7 +4,7 @@ async function obtenerSitios() {
     const conexion = await obtenerConexion();
     try {
         var [results] = await conexion.query('SELECT * FROM sitiosWeb');
-        console.log(results);
+        console.log('Resultados de obtenerSitios en sitiosModel:', results);
         return results;
     } catch (error) {
         console.error('Error al obtener los sitios:', error.message);
