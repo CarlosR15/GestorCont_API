@@ -22,21 +22,25 @@ async function loginUsuario(req, res) {
         let datos = autenticador.verificarDatos(dataSegura);
         const usuario = await _obtenerUsuarioPorNombre(datos.nombre);
 
-        if(!usuario){
-            res.status(404).send('Usuario o contraseña incorrectos');
+        if (!usuario) {
+            return res.status(404).send('Usuario o contraseña incorrectos');
+        }
+
+        if (!usuario.contrasenia) {
+            return res.status(500).send('Error interno del servidor');
         }
 
         let validPassword = await autenticador.comparePassword(datos.password, usuario.contrasenia)
 
         if (!validPassword) {
-            res.status(404).send('Usuario o contraseña incorrectos');
+            return res.status(404).send('Usuario o contraseña incorrectos');
         } else {
-            res.status(200).json(usuario);
+            return res.status(200).json(usuario);
         }
         
     } catch (error) {
         console.error('Error al logear usuario:', error);
-        res.status(500).send('Error interno del servidor');
+        return res.status(500).send('Error interno del servidor');
     }
 }
 
