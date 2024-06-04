@@ -23,17 +23,13 @@ async function loginUsuario(req, res) {
         const usuario = await _obtenerUsuarioPorNombre(datos.nombre);
 
         if (!usuario) {
-            return res.status(404).send('Usuario o contraseña incorrectos');
-        }
-
-        if (!usuario.contrasenia) {
-            return res.status(500).send('Error interno del servidor');
+            return res.status(404).send('No existe el usuario en la base de datos');
         }
 
         let validPassword = await autenticador.comparePassword(datos.password, usuario.contrasenia)
 
         if (!validPassword) {
-            return res.status(404).send('Usuario o contraseña incorrectos');
+            return res.status(404).send('Contraseña incorrecta');
         } else {
             return res.status(200).json(usuario);
         }

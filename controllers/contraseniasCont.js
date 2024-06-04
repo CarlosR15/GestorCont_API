@@ -22,7 +22,18 @@ async function agregarCont(req, res) {
     }
 }
 
+async function eliminarCont(req, res) {
+    const { idContrasenia } = req.params;
+    console.log('Id usado para borrar la Contrasenia por su Id:', idContrasenia);
+    try {
+        await contraseniasService.eliminarCont(idContrasenia);
+    } catch (error) {
+        res.status(500).json({ error: 'Error al obtener las contrasenias por Id' });
+    }
+}
+
 module.exports = {
     obtenerContPorId,
-    agregarCont
+    agregarCont,
+    eliminarCont
 };
